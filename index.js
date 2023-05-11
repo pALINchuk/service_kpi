@@ -10,6 +10,9 @@ const index_route = require('./Routes')
 //     res.send('hello from express')
 // })
 
+app.use(express.json()); // Parse JSON bodies
+app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
+
 //middleware or to set router
 app.use('/', index_route)
 app.use('/api/about', about_route)
