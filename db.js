@@ -9,29 +9,44 @@ const connection = mysql.createConnection({
     database: NAME_DB,
 });
 
-function getComments(){
+function getRecords(){
     return new Promise((resolve, reject) => {
-        connection.query('SELECT * FROM Comment', (error, results) => {
+        connection.query('SELECT * FROM records', (error, results) => {
             if (error) {
                 reject(error);
             } else {
                 resolve(results);
-                console.log(results)
+                // console.log(results)
             }
         });
     });
 }
 
-function saveComment(content){
+function getExactRecord(nameOfRecord){
     return new Promise((resolve, reject) => {
-        connection.query('INSERT INTO Comment (Comment) VALUES (?)', [content], (error, results) => {
+        connection.query(`SELECT * FROM records WHERE name = ?`, [nameOfRecord], (error, results) => {
             if (error) {
+                console.log('error')
                 reject(error);
             } else {
                 resolve(results);
+                // console.log(results)
             }
         });
     });
 }
 
-module.exports = {connection, getComments, saveComment};
+// function saveComment(content){
+//     return new Promise((resolve, reject) => {
+//         connection.query('INSERT INTO Comment (Comment) VALUES (?)', [content], (error, results) => {
+//             if (error) {
+//                 reject(error);
+//             } else {
+//                 resolve(results);
+//             }
+//         });
+//     });
+// }
+
+// module.exports = {connection, getComments, saveComment};
+module.exports = {connection, getRecords, getExactRecord};
